@@ -1,0 +1,10 @@
+# Digest Authentication
+AuthType Digest
+AuthName @WEBNAME@
+AuthDigestDomain /@WEBNAME@
+AuthDigestProvider file
+AuthUserFile "/storage/ikiwiki/@NAME@/htpasswd"
+
+<LimitExcept GET CONNECT>
+  Require valid-user
+</LimitExcept>

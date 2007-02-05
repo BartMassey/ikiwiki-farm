@@ -1,0 +1,6 @@
+<Directory @WEBD@>
+  AllowOverride all
+  Allow from all
+  Options +ExecCGI +FollowSymlinks
+  AddHandler cgi-script .cgi
+</Directory>
