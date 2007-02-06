@@ -4,6 +4,12 @@
 # Please see the end of this file for license information.
 . /storage/ikiwiki/farm/setvars.sh
 
+if [ -d $MASTER ] || [ -d $WEB ] || [ -f $APACHE/$NAME ] || [ -f $GITINDEX/$NAME.git ]
+then
+  echo "wiki exists" >&2
+  exit 1
+fi
+
 # sed substitution file
 SUBST=/tmp/$NAME.subst
 
