@@ -39,7 +39,8 @@ sed -f $SUBST ikiwiki.setup > $SETUP
 sed -f $SUBST index.mdwn > $WD/index.mdwn
 sed -f $SUBST htaccess > $WEBD/.htaccess
 sed -f $SUBST apache2-site.txt > $APACHE/$NAME
-adduser --shell /bin/sh --system --gecos "$DESC" $WUSER
+GECOSDESC="`echo "$DESC" | tr ':,' '-'`"
+adduser --shell /bin/sh --system --gecos "\$GECOSDESC" $WUSER
 addgroup --system $WUSER
 cd $WD
 cg-init -I
