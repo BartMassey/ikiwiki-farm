@@ -58,12 +58,13 @@ echo "$DESC" > .git/description
 mv .git $REPO
 cd $MASTER
 chown -R $WUSER.$WUSER $REPO
-GIT_DIR=$REPO cg-admin-setuprepo -g $WUSER
+cg-admin-setuprepo -g $WUSER $REPO
 mv $WD $WD.bak
 git-clone -l -s $REPO $WD
 echo $NAME $SETUP >> $WIKILIST
 ikiwiki --setup $SETUP
-for d in $REPO $WD $WEBD
+chown -R $WUSER.$WUSER $REPO 
+for d in $WD $WEBD
 do
   chown -R $WUSER.nogroup \$d
 done

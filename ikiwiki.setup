@@ -97,6 +97,6 @@ use IkiWiki::Setup::Standard {
 	#                   sidebar map rst toc linkmap}],
 	add_plugins => [qw{smiley httpauth}],
 	# If you want to disable any of the default plugins, list them here.
-	#disable_plugins => [qw{inline htmlscrubber}],
-	disable_plugins => [qw{passwordauth}],
+	#disable_plugins => [qw{inline passwordauth}],
+	disable_plugins => [qw{htmlscrubber}],
 }
