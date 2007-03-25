@@ -4,9 +4,10 @@
 # Please see the end of this file for license information.
 . /storage/ikiwiki/farm/setvars.sh
 
-if [ -d $MASTER ] || [ -d $WEB ] || [ -f $APACHE/$NAME ] || [ -f $GITINDEX/$NAME.git ]
+if [ -d $MASTER ] || [ -d $WEBD ] || [ -f $APACHE/$NAME ] || [ -f $GITINDEX/$NAME.git ]
 then
   echo "wiki exists" >&2
+  echo "MASTER=$MASTER WEB=$WEBD WEBCONFIG=$APACHE/$NAME GIT=$GITINDEX/$NAME.git" >&2
   exit 1
 fi
 
