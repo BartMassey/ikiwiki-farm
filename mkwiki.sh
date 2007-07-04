@@ -44,7 +44,6 @@ mkdir $WEBD
 cd $FARM
 sed -f $SUBST ikiwiki.setup > $SETUP
 sed -f $SUBST index.mdwn > $WD/index.mdwn
-sed -f $SUBST htaccess > $WEBD/.htaccess
 sed -f $SUBST apache2-site.txt > $APACHE/$NAME
 GECOSDESC="`echo "$DESC" | tr ':,' '-'`"
 adduser --shell /bin/sh --system --gecos "\$GECOSDESC" $WUSER
@@ -75,7 +74,6 @@ a2ensite $NAME
 /etc/init.d/apache2 reload
 cd $MASTER
 mv $SUBST .subst
-htdigest -c htpasswd $WEBNAME $ADMIN
 EOF
 
 # 		    GNU GENERAL PUBLIC LICENSE
