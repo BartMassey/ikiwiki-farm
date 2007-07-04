@@ -16,7 +16,7 @@ use IkiWiki::Setup::Standard {
 	destdir => "@WEBD@",
 	
 	url => "http://wiki.cs.pdx.edu/@WEBNAME@",
-	cgiurl => "http://wiki.cs.pdx.edu/@WEBNAME@/ikiwiki-wrap.cgi",
+	cgiurl => "http://wiki.cs.pdx.edu/@WEBNAME@/ikiwiki.cgi",
 	templatedir => "/usr/share/ikiwiki/templates",
 	
 	# Subversion stuff.
@@ -45,7 +45,7 @@ use IkiWiki::Setup::Standard {
 		{
 			# The cgi wrapper.
 			cgi => 1,
-			wrapper => "@WEBD@/ikiwiki-wrap.cgi",
+			wrapper => "@WEBD@/ikiwiki.cgi",
 			wrappermode => "04755",
 		},
 		#{
@@ -80,7 +80,7 @@ use IkiWiki::Setup::Standard {
 	discussion => 0,
 	# To exclude files matching a regexp from processing. This adds to
 	# the default exclude list.
-	#exclude => qr/\*.wav/,
+	exclude => qr/openid\.mdwn/,
 	# Time format (for strftime)
 	#timeformat => '%c',
 	# Locale to use. Must be a UTF-8 locale.
@@ -91,12 +91,14 @@ use IkiWiki::Setup::Standard {
 	verbose => 0,
 	syslog => 1,
 	
+	usedirs => 1,
+	
 	# To add plugins, list them here.
 	#add_plugins => [qw{meta tag pagecount brokenlinks search smiley
 	#                   wikitext camelcase pagestats htmltidy fortune
 	#                   sidebar map rst toc linkmap}],
-	add_plugins => [qw{smiley httpauth}],
+	add_plugins => [qw{meta tag pagecount sidebar map toc shortcut smiley httpauth}],
 	# If you want to disable any of the default plugins, list them here.
 	#disable_plugins => [qw{inline passwordauth}],
-	disable_plugins => [qw{htmlscrubber}],
+	disable_plugins => [qw{openid}],
 }

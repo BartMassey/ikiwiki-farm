@@ -1,3 +1,3 @@
-# @WEBNAME@ at PSU
+# @WEBNAME@
 
 @DESC@
