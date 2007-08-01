@@ -32,11 +32,14 @@ WIKILIST=/etc/ikiwiki/wikilist
 # master directory
 MASTER=$STORAGE/$NAME
 # setup file
-SETUP=$MASTER/$NAME.setup
+SETUP_BASE=$NAME.setup
+SETUP=$MASTER/$SETUP_BASE
 # working directory
-WD=$MASTER/$NAME-wd
+WD_BASE=$NAME-wd
+WD=$MASTER/$WD_BASE
 # master repository
-REPO=$MASTER/$NAME.git
+REPO_BASE=$NAME.git
+REPO=$MASTER/$REPO_BASE
 # web directory
 WEBD=$WEB/$WEBNAME
 

@@ -94,7 +94,7 @@ use IkiWiki::Setup::Standard {
 	usedirs => 1,
 	
 	# Simple spam prevention: require an account-creation password.
-	account_creation_password => "defaultpw",
+	account_creation_password => "@ACCTPASS@",
 
 	# To add plugins, list them here.
 	#add_plugins => [qw{meta tag pagecount brokenlinks search smiley

@@ -32,6 +32,7 @@ WD
 REPO
 WEBD
 WIKILIST
+ACCTPASS
 EOF
 while read v
 do
@@ -44,35 +45,29 @@ mkdir $WEBD
 cd $FARM
 sed -f $SUBST ikiwiki.setup > $SETUP
 sed -f $SUBST index.mdwn > $WD/index.mdwn
-sed -f $SUBST apache2-site.txt > $APACHE/$NAME
+sed -f $SUBST apache2-site.txt > $APACHE/$WEBNAME
 GECOSDESC="`echo "$DESC" | tr ':,' '-'`"
 adduser --shell /bin/sh --system --gecos "\$GECOSDESC" $WUSER
 addgroup --system $WUSER
 cd $WD
-cg-init -I
-cg-add index.mdwn
-cg-commit -C -m 'added index page'
-git-init-db --shared
+git-init --shared
+git-add index.mdwn
+git-commit -a -m 'added index page'
 echo "$DESC" > .git/description
-mv .git $REPO
+chown -R $WUSER.$WUSER .
+git-init --shared
 cd $MASTER
-chown -R $WUSER.$WUSER $REPO
-cg-admin-setuprepo -g $WUSER $REPO
-mv $WD $WD.bak
+mv $WD_BASE/.git $REPO_BASE
+rm -rf $WD_BASE
 git-clone -l -s $REPO $WD
-echo $NAME $SETUP >> $WIKILIST
-ikiwiki --setup $SETUP
-chown -R $WUSER.$WUSER $REPO 
-for d in $WD $WEBD
-do
-  chown -R $WUSER.nogroup \$d
-done
-su $WUSER -c "ikiwiki --setup $SETUP"
-chown -R $WUSER.nogroup $WD/.ikiwiki
+chown -R $WUSER.$WUSER $WD_BASE
+su $WUSER -c "ikiwiki --setup $SETUP_BASE"
+chown -R $WUSER.nogroup $WEBD
+chown -R $WUSER.$WUSER $WD_BASE/.ikiwiki
 ln -s $REPO $GITINDEX/
-a2ensite $NAME
+echo $NAME $SETUP >> $WIKILIST
+a2ensite $WEBNAME
 /etc/init.d/apache2 reload
-cd $MASTER
 mv $SUBST .subst
 EOF
 
