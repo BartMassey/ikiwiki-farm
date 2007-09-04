@@ -61,8 +61,8 @@ mv $WD_BASE/.git $REPO_BASE
 rm -rf $WD_BASE
 git-clone -l -s $REPO $WD
 chown -R $WUSER.$WUSER $WD_BASE
-su $WUSER -c "ikiwiki --setup $SETUP_BASE"
 chown -R $WUSER.nogroup $WEBD
+su $WUSER -c "ikiwiki --setup $SETUP_BASE"
 chown -R $WUSER.$WUSER $WD_BASE/.ikiwiki
 ln -s $REPO $GITINDEX/
 echo $NAME $SETUP >> $WIKILIST
