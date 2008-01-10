@@ -1,7 +1,0 @@
-WEBNAME=test
-NAME=${WEBNAME}wiki
-WUSER=$NAME
-ADMIN="bart"
-ADMINEMAIL="${ADMIN}@wiki.cs.pdx.edu"
-DESC="Wiki for testing mkwiki and friends"
-ACCTPASS="acctpass"

@@ -18,6 +18,7 @@ echo mkdir $MASTER
 
 cat <<EOF |
 WEBNAME
+DESCNAME
 NAME
 WUSER
 ADMIN
