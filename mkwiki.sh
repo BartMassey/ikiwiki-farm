@@ -50,6 +50,7 @@ sed -f $SUBST apache2-site.txt > $APACHE/$WEBNAME
 GECOSDESC="`echo "$DESC" | tr ':,' '-'`"
 adduser --shell /bin/sh --system --gecos "\$GECOSDESC" $WUSER
 addgroup --system $WUSER
+addgroup $ADMIN $WUSER
 cd $WD
 git-init --shared
 git-add index.mdwn
