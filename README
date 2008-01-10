@@ -9,31 +9,31 @@ remover) suitable for wiki "farming".
 
 To make a wiki:
 
-  * Copy test.cnf to yourwikiname.cnf and edit it appropriately.
-    Note that no checking is done on your .cnf file, so be
-    careful.
+  * Copy template.cnf to yourwikiname.cnf and edit it
+    appropriately. Note that no checking is done on your
+    .cnf file, so be careful.
   
   * Run "sh mkwiki.sh yourwikiname.cnf >/tmp/script".  This
     will emit a shell script that will create the wiki.
     Inspect the script.
   
   * When you are ready, run "sh /tmp/script", which will do
-    a bunch of work and end up prompting you with a password
-    for your new wiki.
+    the work of setting everything up.
 
 * To remove a wiki:
 
     sh rmwiki.sh yourwikiname.cnf >/tmp/script
     sh /tmp/script
 
-  Note that no checking is done on any of this, so be careful.
+  Note that little sanity checking is done on removes, so be
+  careful.
 
 Templates:
 
   The files apache2-site.txt, htaccess, ikiwiki.setup and
   index.mdwn are templates that will be macro-expanded and
   used as part of your wiki.  See setvars.sh, mkwiki.sh and
-  test.cnf for a list of valid macro names.
+  template.cnf for a list of valid macro names.
 
 License:
 
