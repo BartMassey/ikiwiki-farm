@@ -9,12 +9,14 @@ remover) suitable for wiki "farming".
 
 To make a wiki:
 
-  * Copy template.cnf to yourwikiname.cnf and edit it
+  * Copy template.cnf to cnf/yourwikiname.cnf and edit it
     appropriately. Note that no checking is done on your
-    .cnf file, so be careful.
+    .cnf file, so be careful.  When you are done, add
+    your config file to the git repo there so that you can
+    track changes to it.
   
-  * Run "sh mkwiki.sh yourwikiname.cnf >/tmp/script".  This
-    will emit a shell script that will create the wiki.
+  * Run "sh mkwiki.sh cnf/yourwikiname.cnf >/tmp/script".
+    This will emit a shell script that will create the wiki.
     Inspect the script.
   
   * When you are ready, run "sh /tmp/script", which will do
