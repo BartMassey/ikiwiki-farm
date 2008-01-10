@@ -5,9 +5,9 @@
 . /storage/ikiwiki/farm/setvars.sh
 
 cat <<EOF
-a2dissite $NAME
+a2dissite $WEBNAME
 /etc/init.d/apache2 reload
-rm -rf $MASTER $WEBD $APACHE/$NAME $GITINDEX/$NAME.git
+rm -rf $MASTER $WEBD $APACHE/$WEBNAME $GITINDEX/$NAME.git
 deluser $WUSER
 delgroup $WUSER
 sed -i "/^$NAME /d" $WIKILIST
