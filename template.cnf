@@ -6,4 +6,4 @@ ADMIN="bart"
 ADMINEMAIL="${ADMIN}@wiki.cs.pdx.edu"
 DESC="Template wiki for mkwiki"
 ACCTPASS="acctpass"
-PRIVATE="false"
+PRIVATE=''

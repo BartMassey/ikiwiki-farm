@@ -34,6 +34,7 @@ REPO
 WEBD
 WIKILIST
 ACCTPASS
+PRIVATE
 EOF
 while read v
 do
@@ -63,7 +64,7 @@ mv $WD_BASE/.git $REPO_BASE
 rm -rf $WD_BASE
 git-clone -l -s $REPO $WD
 chown -R $WUSER.$WUSER $WD_BASE
-[ "$PRIVATE" = true ] && sed -f $SUBST htaccess > $WEBD/.htaccess
+[ "$PRIVATE" = '#' ] && sed -f $SUBST htaccess > $WEBD/.htaccess
 chown -R $WUSER.nogroup $WEBD
 su $WUSER -c "ikiwiki --setup $SETUP_BASE"
 chown -R $WUSER.$WUSER $WD_BASE/.ikiwiki
