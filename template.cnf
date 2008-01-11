@@ -1,9 +1,19 @@
+# Name of the wiki repository
 NAME=template
+# User-readable version of name
 DESCNAME=Template
+# Version of name used in URL
 WEBNAME=${NAME}-wiki
+# UNIX username/groupname
 WUSER=$NAME
+# wiki administrator
 ADMIN="bart"
+# wiki administrator email
 ADMINEMAIL="${ADMIN}@wiki.cs.pdx.edu"
+# Brief description of wiki
 DESC="Template wiki for mkwiki"
+# Account-creation password
 ACCTPASS="acctpass"
+# XXX Set to '#' for a private wiki; password
+# setup is currently manual
 PRIVATE=''
