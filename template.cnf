@@ -16,4 +16,5 @@ DESC="Template wiki for mkwiki"
 ACCTPASS="acctpass"
 # XXX Set to '#' for a private wiki; password
 # setup is currently manual
-PRIVATE="false"
+PRIVATE=''
+
