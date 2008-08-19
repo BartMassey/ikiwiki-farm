@@ -4,8 +4,6 @@
 # Please see the file COPYING distributed
 # with this script for license information.
 
-MMBIN=/usr/lib/mailman/bin
-
 . /storage/ikiwiki/farm/setvars.sh
 
 if [ -d $MASTER ] || [ -d $WEBD ] || [ -f $APACHE/$NAME ] || [ -f $GITINDEX/$NAME.git ]
@@ -17,6 +15,8 @@ fi
 
 # sed substitution file
 SUBST=/tmp/$NAME.subst
+# mailman config file
+MMTMP=/tmp/$NAME.mmc
 
 echo mkdir $MASTER
 
@@ -24,12 +24,12 @@ cat <<EOF |
 WEBNAME
 DESCNAME
 NAME
+UNAME
 WUSER
 ADMIN
 MAILDOMAIN
 ADMINEMAIL
 DESC
-UDESC
 STORAGE
 WEB
 FARM
@@ -88,8 +88,9 @@ then
   $MMBIN/newlist \\
     -q -u $LISTWEBDOMAIN -e $LISTDOMAIN \\
     $LISTNAME $LISTADMIN $LISTPASSWD
-  sed -f $SUBST mailman-config |
-  $MMBIN/config_list -i - $LISTNAME
+  sed -f $SUBST $FARM/mailman-config >$MMTMP &&
+  $MMBIN/config_list -i $MMTMP $LISTNAME &&
+  rm $MMTMP
 fi
 mv $SUBST .subst
 EOF

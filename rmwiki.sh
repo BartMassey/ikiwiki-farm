@@ -4,8 +4,6 @@
 # Please see the file COPYING distributed
 # with this script for license information.
 
-MMBIN=/usr/lib/mailman/bin
-
 . /storage/ikiwiki/farm/setvars.sh
 
 cat <<EOF

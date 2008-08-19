@@ -29,6 +29,8 @@ WEB=/var/www
 FARM=$STORAGE/farm
 # where the wiki list is
 WIKILIST=/etc/ikiwiki/wikilist
+# where mailman binaries are
+MMBIN=/usr/lib/mailman/bin
 
 # master directory
 MASTER=$STORAGE/$NAME
@@ -43,5 +45,5 @@ REPO_BASE=$NAME.git
 REPO=$MASTER/$REPO_BASE
 # web directory
 WEBD=$WEB/$WEBNAME
-# uppercase description for email list tag
-UDESC="`echo \"$DESC\" | tr 'a-z' 'A-Z'`"
+# uppercase name for email list tag
+UNAME="`echo \"$NAME\" | tr 'a-z' 'A-Z'`"
