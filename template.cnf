@@ -24,13 +24,13 @@ PRIVATE=''
 
 # optional mailman setup
 #
-# Email list name (uncomment to use list)
+# Email list name (uncomment to create list)
 #LISTNAME="$NAME"
 # List domain
 LISTDOMAIN="$MAILDOMAIN"
 # List web interface domain
 LISTWEBDOMAIN="$MAILDOMAIN"
 # List admin
-LISTADMIN="$ADMIN"
+LISTADMIN="$ADMIN"@"$LISTDOMAIN"
 # List admin passwd
 LISTPASSWD=mailpass
