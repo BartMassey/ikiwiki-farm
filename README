@@ -3,11 +3,12 @@ ALL RIGHTS RESERVED
 
 ikiwiki farm software
 Bart Massey <bart@cs.pdx.edu>
+http://wiki.cs.pdx.edu/bartforge/ikiwiki-farm
 
-This set of files constitutes an ikiwiki installer (and
-remover) suitable for wiki "farming".
+This set of files constitutes an ikiwiki and mailman list
+installer (and remover) suitable for wiki "farming".
 
-To make a wiki:
+To make a wiki (and possibly a mailman list):
 
   * Copy template.cnf to cnf/yourwikiname.cnf and edit it
     appropriately. Note that no checking is done on your
@@ -22,7 +23,7 @@ To make a wiki:
   * When you are ready, run "sh /tmp/script", which will do
     the work of setting everything up.
 
-* To remove a wiki:
+* To remove a wiki (and any associated mailman list):
 
     sh rmwiki.sh yourwikiname.cnf >/tmp/script
     sh /tmp/script
@@ -32,10 +33,11 @@ To make a wiki:
 
 Templates:
 
-  The files apache2-site.txt, htaccess, ikiwiki.setup and
-  index.mdwn are templates that will be macro-expanded and
-  used as part of your wiki.  See setvars.sh, mkwiki.sh and
-  template.cnf for a list of valid macro names.
+  The files apache2-site.txt, htaccess, ikiwiki.setup,
+  index.mdwn and mailman-config are templates that will be
+  macro-expanded and used as part of your wiki.  See
+  setvars.sh, mkwiki.sh and template.cnf for a list of valid
+  macro names.
 
 License:
 
