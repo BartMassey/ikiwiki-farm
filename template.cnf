@@ -1,20 +1,36 @@
+# ikiwiki setup
+#
 # Name of the wiki repository
 NAME=template
 # User-readable version of name
 DESCNAME=Template
 # Version of name used in URL
-WEBNAME=${NAME}-wiki
+WEBNAME="${NAME}-wiki"
 # UNIX username/groupname
-WUSER=$NAME
+WUSER="$NAME"
 # wiki administrator
-ADMIN="bart"
+ADMIN=bart
+# wiki email domain
+MAILDOMAIN=wiki.cs.pdx.edu
 # wiki administrator email
-ADMINEMAIL="${ADMIN}@wiki.cs.pdx.edu"
+ADMINEMAIL="${ADMIN}@${MAILDOMAIN}"
 # Brief description of wiki
 DESC="Template wiki for mkwiki"
 # Account-creation password
-ACCTPASS="acctpass"
+ACCTPASS=acctpass
 # XXX Set to '#' for a private wiki; password
 # setup is currently manual
 PRIVATE=''
 
+# optional mailman setup
+#
+# Email list name (uncomment to use list)
+#LISTNAME="$NAME"
+# List domain
+LISTDOMAIN="$MAILDOMAIN"
+# List web interface domain
+LISTWEBDOMAIN="$MAILDOMAIN"
+# List admin
+LISTADMIN="$ADMIN"
+# List admin passwd
+LISTPASSWD=mailpass
