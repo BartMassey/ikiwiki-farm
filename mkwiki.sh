@@ -80,7 +80,7 @@ chown -R $WUSER.nogroup $WEBD
 su $WUSER -c "ikiwiki --setup $SETUP_BASE"
 chown -R $WUSER.$WUSER $WD_BASE/.ikiwiki
 ln -s $REPO $GITINDEX/
-echo $NAME $SETUP >> $WIKILIST
+echo $WUSER $SETUP >> $WIKILIST
 a2ensite $WEBNAME
 /etc/init.d/apache2 reload
 if [ $LISTNAME != "" ]
