@@ -13,5 +13,5 @@ rm -rf $MASTER $WEBD $APACHE/$WEBNAME $GITINDEX/$NAME.git
 deluser $WUSER
 delgroup $WUSER
 sed -i "/^$NAME /d" $WIKILIST
-[ $LISTNAME != "" ] && $MMBIN/rmlist $LISTNAME
+[ "$LISTNAME" != "" ] && $MMBIN/rmlist $LISTNAME
 EOF
