@@ -63,20 +63,13 @@ GECOSDESC="`echo "$DESC" | tr ':,' '-'`"
 adduser --shell /bin/sh --system --gecos "\$GECOSDESC" $WUSER
 addgroup --system $WUSER
 addgroup $ADMIN $WUSER
-cd $WD
-git-init --shared
-git-add index.mdwn
-git-commit -a -m 'added index page'
-echo "$DESC" > .git/description
-chown -R $WUSER.$WUSER .
-git-init --shared
-cd $MASTER
-mv $WD_BASE/.git $REPO_BASE
-rm -rf $WD_BASE
-git-clone -l -s $REPO $WD
-chown -R $WUSER.$WUSER $WD_BASE
+ikiwiki-makerepo git $WD $REPO
+echo "$DESC" > $REPO/description
+chown -R $WUSER.$WUSER $REPO
+chown -R $WUSER.$WUSER $WD
 [ "$PRIVATE" = '#' ] && sed -f $SUBST htaccess > $WEBD/.htaccess
 chown -R $WUSER.nogroup $WEBD
+cd $MASTER
 su $WUSER -c "ikiwiki --setup $SETUP_BASE"
 chown -R $WUSER.$WUSER $WD_BASE/.ikiwiki
 ln -s $REPO $GITINDEX/
