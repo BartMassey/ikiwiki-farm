@@ -29,7 +29,7 @@ use IkiWiki::Setup::Standard {
 	# rcs backend to use
 	rcs => 'git',
 	# plugins to add to the default configuration
-	add_plugins => [qw{meta tag pagecount sidebar map toc shortcut smiley httpauth}],
+	add_plugins => [qw{meta tag pagecount sidebar map toc shortcut httpauth}],
 	# plugins to disable
 	disable_plugins => [qw{openid}],
 	# location of template files
