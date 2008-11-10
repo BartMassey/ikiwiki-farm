@@ -1,107 +1,245 @@
 #!/usr/bin/perl
-# Configuration file for ikiwiki.
-# Passing this to ikiwiki --setup will make ikiwiki generate wrappers and 
-# build the wiki.
+# Setup file for ikiwiki.
+#
+# Passing this to ikiwiki --setup will make ikiwiki generate
+# wrappers and build the wiki.
 #
 # Remember to re-run ikiwiki --setup any time you edit this file.
-
 use IkiWiki::Setup::Standard {
-	wikiname => "@NAME@",
-	adminuser => ["@ADMIN@",],
+	# name of the wiki
+	wikiname => '@NAME@',
+	# contact email for wiki
 	adminemail => '@ADMINEMAIL@',
-	underlaydir => '/storage/ikiwiki/underlay',
-	
-	# Be sure to customise these..
-	srcdir => "@WD@",
-	destdir => "@WEBD@",
-	
-	url => "http://wiki.cs.pdx.edu/@WEBNAME@",
-	cgiurl => "http://wiki.cs.pdx.edu/@WEBNAME@/ikiwiki.cgi",
-	templatedir => "/usr/share/ikiwiki/templates",
-	
-	# Subversion stuff.
-	#rcs => "svn",
-	#historyurl => "http://svn.myhost/trunk/[[file]]",
-	#diffurl => "http://svn.someurl/trunk/[[file]]?root=wiki&amp;r1=[[r1]]&amp;r2=[[r2]]",
-	#svnrepo => "/svn/wiki",
-	#svnpath => "trunk",
-
-	# Git stuff.
-	rcs => "git",
-	@PRIVATE@historyurl => "http://wiki.cs.pdx.edu/cgi-bin/gitweb.cgi?p=@NAME@.git;a=history;f=[[file]]",
-	@PRIVATE@diffurl => "http://wiki.cs.pdx.edu/cgi-bin/gitweb.cgi?p=@NAME@.git;a=blobdiff;h=[[sha1_to]];hp=[[sha1_from]];hb=[[sha1_parent]];f=[[file]]",
-
-	# Tla stuff.
-	#rcs => "tla"
-	#historyurl => ??,
-	#diffurl => ??,
-
-	# Mercurial stuff.
-	#rcs => "mercurial",
-	#historyurl => "http://localhost:8000/", # hg serve'd local repository
-	#diffurl => "http://localhost:8000/?fd=[[changeset]];file=[[file]]",
-
-	wrappers => [
-		{
-			# The cgi wrapper.
-			cgi => 1,
-			wrapper => "@WEBD@/ikiwiki.cgi",
-			wrappermode => "04755",
-		},
-		#{
-		#	# The svn post-commit wrapper.
-		#	# Note that this will overwrite any existing
-		#	# post-commit hook script, which may not be
-		#	# what you want.
-		#	wrapper => "/svn/wikirepo/hooks/post-commit",
-		#	wrappermode => "04755",
-		#	# Enable mail notifications of commits.
-		#	notify => 1,
-		#},
-		{
-			# The git post-update wrapper.
-			# Note that this will overwrite any existing
-			# post-update hook script, which may not be
-			# what you want.
-			wrapper => "@REPO@/hooks/post-update",
-			wrappermode => "04755",
-			# Enable mail notifications of commits.
-			notify => 1,
-		},
-	],
-	
-	# Can anonymous web users edit pages?
-	#anonok => 1,
-	# Generate rss feeds for pages?
-	rss => 1,
-	# Urls to ping with XML-RPC when rss feeds are updated
-	#pingurl => [qw{http://rpc.technorati.com/rpc/ping}],
-	# Include discussion links on all pages?
-	discussion => 0,
-	# To exclude files matching a regexp from processing. This adds to
-	# the default exclude list.
-	exclude => qr/openid\.mdwn/,
-	# Time format (for strftime)
-	#timeformat => '%c',
-	# Locale to use. Must be a UTF-8 locale.
-	#locale => 'en_US.UTF-8',
-	# Only send cookies over SSL connections.
-	#sslcookie => 1,
-	# Logging settings:
-	verbose => 0,
-	syslog => 1,
-	
-	usedirs => 1,
-	
-	# Simple spam prevention: require an account-creation password.
-	account_creation_password => "@ACCTPASS@",
-
-	# To add plugins, list them here.
-	#add_plugins => [qw{meta tag pagecount brokenlinks search smiley
-	#                   wikitext camelcase pagestats htmltidy fortune
-	#                   sidebar map rst toc linkmap}],
+	# users who are wiki admins
+	adminuser => ['@ADMIN@'],
+	# users who are banned from the wiki
+	banned_users => [],
+	# where the source of the wiki is located
+	srcdir => '@WD@',
+	# where to build the wiki
+	destdir => '@WEBD@',
+	# base url to the wiki
+	url => 'http://wiki.cs.pdx.edu/@WEBNAME@',
+	# url to the ikiwiki.cgi
+	cgiurl => 'http://wiki.cs.pdx.edu/@WEBNAME@/ikiwiki.cgi',
+	# cgi wrapper to generate
+	cgi_wrapper => '@WEBD@/ikiwiki.cgi',
+	# mode for cgi_wrapper (can safely be made suid)
+	cgi_wrappermode => '04755',
+	# rcs backend to use
+	rcs => 'git',
+	# plugins to add to the default configuration
 	add_plugins => [qw{meta tag pagecount sidebar map toc shortcut smiley httpauth}],
-	# If you want to disable any of the default plugins, list them here.
-	#disable_plugins => [qw{inline passwordauth}],
+	# plugins to disable
 	disable_plugins => [qw{openid}],
+	# location of template files
+	templatedir => '/usr/share/ikiwiki/templates',
+	# base wiki source location
+	underlaydir => '/storage/ikiwiki/underlay',
+	# display verbose messages when building?
+	verbose => 0,
+	# log to syslog?
+	syslog => 1,
+	# create output files named page/index.html?
+	usedirs => 0,
+	# use '!'-prefixed preprocessor directives?
+	prefix_directives => 0,
+	# use page/index.mdwn source files
+	indexpages => 0,
+	# enable Discussion pages?
+	discussion => 1,
+	# only send cookies over SSL connections?
+	sslcookie => 0,
+	# extension to use for new pages
+	default_pageext => 'mdwn',
+	# extension to use for html files
+	htmlext => 'html',
+	# strftime format string to display date
+	timeformat => '%c',
+	# UTF-8 locale to use
+	#locale => 'en_US.UTF-8',
+	# put user pages below specified page
+	userdir => '',
+	# how many backlinks to show before hiding excess (0 to show all)
+	numbacklinks => 5,
+	# attempt to hardlink source files? (optimisation for large files)
+	hardlink => 0,
+	# force ikiwiki to use a particular umask
+	#umask => 022,
+	# extra library and plugin directory
+	libdir => '',
+	# environment variables
+	ENV => {},
+	# regexp of source files to ignore
+	#exclude => '\\.wav$',
+	# specifies the characters that are allowed in source filenames
+	wiki_file_chars => '-[:alnum:]+/.:_',
+	# allow symlinks in the path leading to the srcdir (potentially insecure)
+	allow_symlinks_before_srcdir => 1,
+
+	# aggregate plugin
+	# enable aggregation to internal pages?
+	#aggregateinternal => 0,
+	# allow aggregation to be triggered via the web?
+	#aggregate_webtrigger => 0,
+
+	# anonok plugin
+	# PageSpec to limit which pages anonymous users can edit
+	#anonok_pagespec => '*/discussion',
+
+	# attachment plugin
+	# enhanced PageSpec specifying what attachments are allowed
+	#allowed_attachments => 'virusfree() and mimetype(image/*) and maxsize(50kb)',
+	# virus checker program (reads STDIN, returns nonzero if virus found)
+	#virus_checker => 'clamdscan -',
+
+	# bzr plugin
+	# bzr post-commit hook to generate
+	#bzr_wrapper => '',
+	# mode for bzr_wrapper (can safely be made suid)
+	#bzr_wrappermode => '06755',
+	# url to show file history, using loggerhead ([[file]] substituted)
+	#historyurl => '',
+	# url to view a diff, using loggerhead ([[file]] and [[r2]] substituted)
+	#diffurl => 'http://example.com/revision?start_revid=[[r2]]#[[file]]-s',
+
+	# calendar plugin
+	# base of the archives hierarchy
+	#archivebase => 'archives',
+
+	# git plugin
+	# git hook to generate
+	git_wrapper => '@REPO@/hooks/post-update',
+	# mode for git_wrapper (can safely be made suid)
+	git_wrappermode => '04755',
+	# git pre-receive hook to generate
+	#git_test_receive_wrapper => '@REPO@/hooks/pre-receive',
+	# unix users whose commits should be checked by the pre-receive hook
+	#untrusted_committers => [],
+	# gitweb url to show file history ([[file]] substituted)
+	@PRIVATE@historyurl => 'http://wiki.cs.pdx.edu/cgi-bin/gitweb.cgi?p=@NAME@.git;a=history;f=[[file]]',
+	# gitweb url to show a diff ([[sha1_to]], [[sha1_from]], [[sha1_parent]], [[sha1_commit]] and [[file]] substituted)
+	@PRIVATE@diffurl => 'http://wiki.cs.pdx.edu/cgi-bin/gitweb.cgi?p=@NAME@.git;a=blobdiff;h=[[sha1_to]];hp=[[sha1_from]];hb=[[sha1_parent]];f=[[file]]',
+	# where to pull and push changes (set to empty string to disable)
+	#gitorigin_branch => 'origin',
+	# branch that the wiki is stored in
+	#gitmaster_branch => 'master',
+
+	# htmlscrubber plugin
+	# PageSpec specifying pages not to scrub
+	#htmlscrubber_skip => '!*/Discussion',
+
+	# inline plugin
+	# enable rss feeds by default?
+	#rss => 0,
+	# enable atom feeds by default?
+	#atom => 0,
+	# allow rss feeds to be used?
+	#allowrss => 0,
+	# allow atom feeds to be used?
+	#allowatom => 0,
+	# urls to ping (using XML-RPC) on feed update
+	pingurl => [],
+
+	# listdirectives plugin
+	# directory in srcdir that contains directive descriptions
+	#directive_description_dir => 'ikiwiki/directive',
+
+	# lockedit plugin
+	# PageSpec controlling which pages are locked
+	#locked_pages => '!*/Discussion',
+
+	# mdwn plugin
+	# enable multimarkdown features?
+	#multimarkdown => 0,
+
+	# mercurial plugin
+	# mercurial post-commit hook to generate
+	#mercurial_wrapper => '',
+	# mode for mercurial_wrapper (can safely be made suid)
+	#mercurial_wrappermode => '06755',
+	# url to hg serve'd repository, to show file history ([[file]] substituted)
+	#historyurl => 'http://example.com:8000/log/tip/[[file]]',
+	# url to hg serve'd repository, to show diff ([[file]] and [[r2]] substituted)
+	#diffurl => 'http://localhost:8000/?fd=[[r2]];file=[[file]]',
+
+	# mirrorlist plugin
+	# list of mirrors
+	#mirrorlist => {},
+
+	# openid plugin
+	# an url where users can signup for an OpenID
+	#openidsignup => 'http://myopenid.com/',
+
+	# passwordauth plugin
+	# a password that must be entered when signing up for an account
+	account_creation_password => '@ACCTPASS@',
+	# cost of generating a password using Authen::Passphrase::BlowfishCrypt
+	#password_cost => 8,
+
+	# pinger plugin
+	# how many seconds to try pinging before timing out
+	#pinger_timeout => 15,
+
+	# prettydate plugin
+	# format to use to display date
+	#prettydateformat => '%X, %B %o, %Y',
+
+	# recentchanges plugin
+	# name of the recentchanges page
+	recentchangespage => 'recentchanges',
+	# number of changes to track
+	recentchangesnum => 100,
+
+	# search plugin
+	# path to the omega cgi program
+	#omega_cgi => '/usr/lib/cgi-bin/omega/omega',
+
+	# svn plugin
+	# subversion repository location
+	#svnrepo => '/svn/wiki',
+	# path inside repository where the wiki is located
+	#svnpath => 'trunk',
+	# svn post-commit hook to generate
+	#svn_wrapper => '/svn/wikirepo/hooks/post-commit',
+	# mode for svn_wrapper (can safely be made suid)
+	#svn_wrappermode => '04755',
+	# viewvc url to show file history ([[file]] substituted)
+	#historyurl => 'http://svn.example.org/trunk/[[file]]',
+	# viewvc url to show a diff ([[file]], [[r1]], and [[r2]] substituted)
+	#diffurl => 'http://svn.example.org/trunk/[[file]]?root=wiki&amp;r1=[[r1]]&amp;r2=[[r2]]',
+
+	# tag plugin
+	# parent page tags are located under
+	#tagbase => 'tag',
+
+	# teximg plugin
+	# Should teximg use dvipng to render, or dvips and convert?
+	#teximg_dvipng => '',
+	# LaTeX prefix for teximg plugin
+	#teximg_prefix => '\\documentclass{article}
+	#\\usepackage{amsmath}
+	#\\usepackage{amsfonts}
+	#\\usepackage{amssymb}
+	#\\pagestyle{empty}
+	#\\begin{document}
+	#',
+	# LaTeX postfix for teximg plugin
+	#teximg_postfix => '\\end{document}',
+
+	# tla plugin
+	# tla post-commit hook to generate
+	#tla_wrapper => '',
+	# mode for tla_wrapper (can safely be made suid)
+	#tla_wrappermode => '06755',
+	# url to show file history ([[file]] substituted)
+	#historyurl => '',
+	# url to show a diff ([[file]] and [[rev]] substituted)
+	#diffurl => '',
+
+	# websetup plugin
+	# list of plugins that cannot be enabled/disabled via the web interface
+	#websetup_force_plugins => [],
+	# show unsafe settings, read-only, in web interface?
+	#websetup_show_unsafe => 1,
 }
