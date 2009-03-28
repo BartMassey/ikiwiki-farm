@@ -76,7 +76,7 @@ ln -s $REPO $GITINDEX/
 echo $WUSER $SETUP >> $WIKILIST
 a2ensite $WEBNAME
 /etc/init.d/apache2 reload
-if [ $LISTNAME != "" ]
+if [ "$LISTNAME" != "" ]
 then
   $MMBIN/newlist \\
     -q -u $LISTWEBDOMAIN -e $LISTDOMAIN \\
