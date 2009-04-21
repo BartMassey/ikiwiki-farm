@@ -66,6 +66,7 @@ addgroup $ADMIN $WUSER
 ikiwiki-makerepo git $WD $REPO
 echo "$DESC" > $REPO/description
 chown -R $WUSER.$WUSER $REPO
+chmod u+s $REPO/hooks/post-update
 chown -R $WUSER.$WUSER $WD
 [ "$PRIVATE" = '#' ] && sed -f $SUBST htaccess > $WEBD/.htaccess
 chown -R $WUSER.nogroup $WEBD
