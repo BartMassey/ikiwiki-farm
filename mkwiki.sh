@@ -52,33 +52,38 @@ do
   echo s=@$v@=`eval echo "$"$v`=g
 done > $SUBST
 
-cat <<EOF
+sed 's/^@/#/' <<EOF
+@ do initial setup
 mkdir $WD
 mkdir $WEBD
+@ build config files
 cd $FARM
 sed -f $SUBST ikiwiki.setup > $SETUP
 sed -f $SUBST index.mdwn > $WD/index.mdwn
 sed -f $SUBST apache2-site.txt > $APACHE/$WEBNAME
+@ set up user and groups
 GECOSDESC="`echo "$DESC" | tr ':,' '-'`"
-adduser --shell /bin/sh --system --gecos "\$GECOSDESC" $WUSER
-addgroup --system $WUSER
+adduser --shell /bin/sh --disabled-password --gecos "\$GECOSDESC" $WUSER
 addgroup $ADMIN $WUSER
+cd $MASTER
+su $WUSER -c "ikiwiki --setup $SETUP_BASE"
+@ set up working directory
+chown -R $WUSER.$WUSER $WD
+@ set up web directory
+[ "$PRIVATE" = '#' ] && sed -f $SUBST htaccess > $WEBD/.htaccess
+chown -R $WUSER.$WUSER $WEBD
+chmod u+s $WUSER/ikiwiki.cgi
+@ set up repo
 ikiwiki-makerepo git $WD $REPO
 echo "$DESC" > $REPO/description
 chown -R $WUSER.$WUSER $REPO
 chmod u+s $REPO/hooks/post-update
-chown -R $WUSER.$WUSER $WD
-[ "$PRIVATE" = '#' ] && sed -f $SUBST htaccess > $WEBD/.htaccess
-chown -R $WUSER.nogroup $WEBD
-cd $MASTER
-su $WUSER -c "ikiwiki --setup $SETUP_BASE"
-chown -R $WUSER.$WUSER $REPO
-chmod u+s $REPO/hooks/post-update
-chown -R $WUSER.$WUSER $WD
 ln -s $REPO $GITINDEX/
+@ ikiwiki / apache setup
 echo $WUSER $SETUP >> $WIKILIST
 a2ensite $WEBNAME
 /etc/init.d/apache2 reload
+@ optional email list setup
 if [ "$LISTNAME" != "" ]
 then
   $MMBIN/newlist \\
@@ -88,5 +93,6 @@ then
   $MMBIN/config_list -i $MMTMP $LISTNAME &&
   rm $MMTMP
 fi
+@ save substitutions for future reference
 mv $SUBST .subst
 EOF
