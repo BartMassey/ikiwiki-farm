@@ -72,7 +72,9 @@ chown -R $WUSER.$WUSER $WD
 chown -R $WUSER.nogroup $WEBD
 cd $MASTER
 su $WUSER -c "ikiwiki --setup $SETUP_BASE"
-chown -R $WUSER.$WUSER $WD_BASE/.ikiwiki
+chown -R $WUSER.$WUSER $REPO
+chmod u+s $REPO/hooks/post-update
+chown -R $WUSER.$WUSER $WD
 ln -s $REPO $GITINDEX/
 echo $WUSER $SETUP >> $WIKILIST
 a2ensite $WEBNAME
