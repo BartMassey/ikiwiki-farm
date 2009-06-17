@@ -14,7 +14,7 @@ then
 fi
 
 # sed substitution file
-SUBST=/tmp/$NAME.subst
+SUBST=$FARM/cnf/$NAME.subst
 # mailman config file
 MMTMP=/tmp/$NAME.mmc
 
@@ -66,19 +66,20 @@ GECOSDESC="`echo "$DESC" | tr ':,' '-'`"
 adduser --shell /bin/sh --disabled-password --gecos "\$GECOSDESC" $WUSER
 addgroup $ADMIN $WUSER
 cd $MASTER
-su $WUSER -c "ikiwiki --setup $SETUP_BASE"
 @ set up working directory
 chown -R $WUSER.$WUSER $WD
-@ set up web directory
-[ "$PRIVATE" = '#' ] && sed -f $SUBST htaccess > $WEBD/.htaccess
-chown -R $WUSER.$WUSER $WEBD
-chmod u+s $WUSER/ikiwiki.cgi
 @ set up repo
 ikiwiki-makerepo git $WD $REPO
 echo "$DESC" > $REPO/description
 chown -R $WUSER.$WUSER $REPO
 chmod u+s $REPO/hooks/post-update
 ln -s $REPO $GITINDEX/
+chown -R $WUSER.$WUSER $WD
+@ set up web directory
+[ "$PRIVATE" = '#' ] && sed -f $SUBST htaccess > $WEBD/.htaccess
+chown -R $WUSER.$WUSER $WEBD
+su $WUSER -c "ikiwiki --setup $SETUP_BASE"
+chmod u+s $WEBD/ikiwiki.cgi
 @ ikiwiki / apache setup
 echo $WUSER $SETUP >> $WIKILIST
 a2ensite $WEBNAME

@@ -9,6 +9,7 @@
 cat <<EOF
 a2dissite $WEBNAME
 /etc/init.d/apache2 reload
+mv $MASTER/.subst cnf/$NAME.subst
 rm -rf $MASTER $WEBD $APACHE/$WEBNAME $GITINDEX/$NAME.git
 deluser $WUSER
 delgroup $WUSER
