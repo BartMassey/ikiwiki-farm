@@ -76,7 +76,7 @@ chmod u+s $REPO/hooks/post-update
 ln -s $REPO $GITINDEX/
 chown -R $WUSER.$WUSER $WD
 @ set up web directory
-[ "$PRIVATE" = '#' ] && sed -f $SUBST htaccess > $WEBD/.htaccess
+[ "$PRIVATE" = '#' ] && sed -f $SUBST $FARM/htaccess > $WEBD/.htaccess
 chown -R $WUSER.$WUSER $WEBD
 su $WUSER -c "ikiwiki --setup $SETUP_BASE"
 chmod u+s $WEBD/ikiwiki.cgi
