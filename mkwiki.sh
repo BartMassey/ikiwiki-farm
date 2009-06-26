@@ -80,6 +80,11 @@ chown -R $WUSER.$WUSER $WD
 chown -R $WUSER.$WUSER $WEBD
 su $WUSER -c "ikiwiki --setup $SETUP_BASE"
 chmod u+s $WEBD/ikiwiki.cgi
+@ XXX workaround for ikiwiki bug
+( cd $WD/.ikiwiki
+  touch commitlock
+  chmod 600 commitlock
+  chown $WUSER.$WUSER commitlock )
 @ ikiwiki / apache setup
 echo $WUSER $SETUP >> $WIKILIST
 a2ensite $WEBNAME
