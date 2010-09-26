@@ -72,14 +72,12 @@ chown -R $WUSER.$WUSER $WD
 ikiwiki-makerepo git $WD $REPO
 echo "$DESC" > $REPO/description
 chown -R $WUSER.$WUSER $REPO
-chmod u+s $REPO/hooks/post-update
 ln -s $REPO $GITINDEX/
 chown -R $WUSER.$WUSER $WD
 @ set up web directory
 [ "$PRIVATE" = '#' ] && sed -f $SUBST $FARM/htaccess > $WEBD/.htaccess
 chown -R $WUSER.$WUSER $WEBD
 su $WUSER -c "ikiwiki --setup $SETUP_BASE"
-chmod u+s $WEBD/ikiwiki.cgi
 @ XXX workaround for ikiwiki bug
 ( cd $WD/.ikiwiki
   touch commitlock
@@ -87,6 +85,8 @@ chmod u+s $WEBD/ikiwiki.cgi
   chown $WUSER.$WUSER commitlock )
 @ ikiwiki / apache setup
 echo $WUSER $SETUP >> $WIKILIST
+chmod u+s $WEBD/ikiwiki.cgi
+chmod u+s $REPO/hooks/post-update
 a2ensite $WEBNAME
 /etc/init.d/apache2 reload
 @ optional email list setup
