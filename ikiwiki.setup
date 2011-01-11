@@ -29,7 +29,7 @@ use IkiWiki::Setup::Standard {
 	# rcs backend to use
 	rcs => 'git',
 	# plugins to add to the default configuration
-	add_plugins => [qw{meta tag pagecount sidebar map toc shortcut httpauth}],
+	add_plugins => [qw{meta tag pagecount sidebar map toc shortcut httpauth attachment}],
 	# plugins to disable
 	disable_plugins => [qw{openid}],
 	# location of template files
@@ -47,7 +47,7 @@ use IkiWiki::Setup::Standard {
 	# use page/index.mdwn source files
 	indexpages => 0,
 	# enable Discussion pages?
-	discussion => 1,
+	discussion => 0,
 	# only send cookies over SSL connections?
 	sslcookie => 0,
 	# extension to use for new pages
@@ -90,6 +90,7 @@ use IkiWiki::Setup::Standard {
 	# attachment plugin
 	# enhanced PageSpec specifying what attachments are allowed
 	#allowed_attachments => 'virusfree() and mimetype(image/*) and maxsize(50kb)',
+	allowed_attachments => 'mimetype(text/pdf) or mimetype(application/pdf)',
 	# virus checker program (reads STDIN, returns nonzero if virus found)
 	#virus_checker => 'clamdscan -',
 
