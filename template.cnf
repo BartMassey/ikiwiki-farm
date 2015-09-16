@@ -5,7 +5,7 @@ NAME=template
 # User-readable version of name
 DESCNAME=Template
 # Version of name used in URL
-WEBNAME="${NAME}-wiki"
+WEBNAME="${NAME}"
 # UNIX username/groupname
 WUSER="$NAME"
 # wiki administrator

@@ -90,7 +90,7 @@ use IkiWiki::Setup::Standard {
 	# attachment plugin
 	# enhanced PageSpec specifying what attachments are allowed
 	#allowed_attachments => 'virusfree() and mimetype(image/*) and maxsize(50kb)',
-	allowed_attachments => 'mimetype(text/pdf) or mimetype(application/pdf)',
+	allowed_attachments => 'mimetype(text/pdf) or mimetype(application/pdf) or mimetype(image/png) or mimetype(image/jpeg)',
 	# virus checker program (reads STDIN, returns nonzero if virus found)
 	#virus_checker => 'clamdscan -',
 
