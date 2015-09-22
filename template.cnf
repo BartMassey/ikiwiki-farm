@@ -14,8 +14,8 @@ ADMIN=bart
 MAILDOMAIN=wiki.cs.pdx.edu
 # wiki administrator email
 ADMINEMAIL="${ADMIN}@${MAILDOMAIN}"
-# Brief description of wiki
-DESC="Template wiki for mkwiki"
+# Brief description of wiki topic
+DESC="mkwiki Template"
 # Account-creation password
 ACCTPASS=acctpass
 # XXX Set to '#' for a private wiki; password
