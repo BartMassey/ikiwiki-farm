@@ -6,19 +6,20 @@
 
 . /storage/ikiwiki/farm/setvars.sh
 
+sed 's/^@/#/' <<EOF
+@ check for already initialized
 if [ -d $MASTER ] || [ -d $WEBD ] || [ -f $APACHE/$NAME ] || [ -f $GITINDEX/$NAME.git ]
 then
   echo "wiki exists" >&2
   echo "MASTER=$MASTER WEB=$WEBD WEBCONFIG=$APACHE/$NAME GIT=$GITINDEX/$NAME.git" >&2
   exit 1
 fi
+EOF
 
 # sed substitution file
 SUBST=$FARM/cnf/$NAME.subst
 # mailman config file
 MMTMP=/tmp/$NAME.mmc
-
-echo mkdir $MASTER
 
 cat <<EOF |
 WEBNAME
@@ -54,6 +55,7 @@ done > $SUBST
 
 sed 's/^@/#/' <<EOF
 @ do initial setup
+mkdir $MASTER
 mkdir $WD
 mkdir $WEBD
 @ build config files
