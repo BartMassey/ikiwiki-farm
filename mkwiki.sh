@@ -8,10 +8,10 @@
 
 sed 's/^@/#/' <<EOF
 @ check for already initialized
-if [ -d $MASTER ] || [ -d $WEBD ] || [ -f $APACHE/$NAME ] || [ -f $GITINDEX/$NAME.git ]
+if [ -d $MASTER ] || [ -d $WEBD ] || [ -f $APACHE/$NAME ]
 then
   echo "wiki exists" >&2
-  echo "MASTER=$MASTER WEB=$WEBD WEBCONFIG=$APACHE/$NAME GIT=$GITINDEX/$NAME.git" >&2
+  echo "MASTER=$MASTER WEB=$WEBD WEBCONFIG=$APACHE/$NAME" >&2
   exit 1
 fi
 EOF
@@ -74,7 +74,6 @@ chown -R $WUSER.$WUSER $WD
 ikiwiki-makerepo git $WD $REPO
 echo "$DESC" > $REPO/description
 chown -R $WUSER.$WUSER $REPO
-ln -s $REPO $GITINDEX/
 chown -R $WUSER.$WUSER $WD
 @ set up web directory
 [ "$PRIVATE" = '#' ] && sed -f $SUBST $FARM/htaccess > $WEBD/.htaccess

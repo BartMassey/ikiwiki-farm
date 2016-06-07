@@ -17,8 +17,6 @@ else
   exit 1
 fi
 
-# where the global git index lives
-GITINDEX=/git
 # where apache descriptions live
 APACHE=/etc/apache2/sites-available
 # where master directories live
