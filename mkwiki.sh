@@ -8,10 +8,10 @@
 
 sed 's/^@/#/' <<EOF
 @ check for already initialized
-if [ -d $MASTER ] || [ -d $WEBD ] || [ -f $APACHE/$NAME ]
+if [ -d $MASTER ] || [ -d $WEBD ] || [ -f $APACHE/$NAME.conf ]
 then
   echo "wiki exists" >&2
-  echo "MASTER=$MASTER WEB=$WEBD WEBCONFIG=$APACHE/$NAME" >&2
+  echo "MASTER=$MASTER WEB=$WEBD WEBCONFIG=$APACHE/$NAME.conf" >&2
   exit 1
 fi
 EOF
@@ -62,7 +62,7 @@ mkdir $WEBD
 cd $FARM
 sed -f $SUBST ikiwiki.setup > $SETUP
 sed -f $SUBST index.mdwn > $WD/index.mdwn
-sed -f $SUBST apache2-site.txt > $APACHE/$WEBNAME
+sed -f $SUBST apache2-site.txt > $APACHE/$WEBNAME.conf
 @ set up user and groups
 GECOSDESC="`echo "$DESC" | tr ':,' '-'`"
 adduser --shell /bin/sh --disabled-password --gecos "\$GECOSDESC" $WUSER
